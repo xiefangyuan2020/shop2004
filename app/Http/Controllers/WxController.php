@@ -283,6 +283,9 @@ class WxController extends Controller
              $file_type = '.mp4';
              $rey["media_id"]=$data->MediaId;
              Media::insert($rey);
+              $content = "视频";
+              echo $this->Text($data,$content);
+
 
          }
 //         文本
@@ -295,6 +298,8 @@ class WxController extends Controller
              $file_type = '.amr';
              $rey["media_id"]=$data->MediaId;
              Media::insert($rey);
+              $content = "音频";
+              echo $this->Text($data,$content);
 
          }
          $path = 'wxmedia';
