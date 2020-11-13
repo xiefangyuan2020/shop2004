@@ -123,7 +123,7 @@ class WxController extends Controller
 	{
 		$echostr = $request->echostr;
 		// $signature = $_GET["signature"];
-		// $timestamp = $_GET["timestamp"];
+		// $timestamp = $_GET["timestamp"];w
 		// $nonce = $_GET["nonce"];
 		$signature = request()->get("signature");
 		$timestamp = request()->get("timestamp");
@@ -274,6 +274,9 @@ class WxController extends Controller
              $rey["url"] = $data->PicUrl;
              $rey["media_id"] = $data->MediaId;
              Media::insert($rey);
+             $content = "图片";
+             echo $this->Text($data,$content);
+
          }
          //视频
          if($data->MsgType=="video"){
