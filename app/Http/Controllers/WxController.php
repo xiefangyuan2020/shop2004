@@ -204,6 +204,29 @@ class WxController extends Controller
 							$content = $array[array_rand($array)];
 							$this->Text($data,$content);
 							break;
+						case "V1001_QIAN":
+							$key = $data->FromUserName;
+							$times = date("Y-m-d",time());
+							$obj = Redis::zrange($key,0,-1);
+							if($data){
+								$date = $date[0];
+							}
+							if($date==$times){
+								$content = "你今天已签到,请明天再来!";
+							}else{
+								$zcard = Redis::zcard($key);
+								if($zcard>=1){
+									Redis::zremrangebyrank($key,0,0);
+								}
+								$keys = json_decode(json_encode($data),true);
+
+
+								$keys = $keys['FromUserName'];
+								$zincrby = Redis::zincrby($key,1,$keys);
+								$zadd = Redis::zadd($key,$zincrby,$times);
+								$content = "签到成功,您已积累签到".$zincrby."天!";
+							}
+							break;
 						case 'V1001_GOOD':
 							$count = Cache::add('good',1)?:Cache::increment('goods');
 							$content = '点赞人数:'.$count;
@@ -324,6 +347,11 @@ class WxController extends Controller
 			        "name":"今日歌曲",
 			        "key":"V1001_TODAY_MUSIC"
 			    },
+			    {	
+			        "type":"click",
+			        "name":"签到",
+			        "key":"V1001_QIAN"
+			    },
 			    {
 			        "name":"菜单",
 			        "sub_button":[
@@ -384,29 +412,7 @@ class WxController extends Controller
 
 
 
-    // case "V1001_QIAN":
-						// 	$key = $data->FromUserName;
-						// 	$times = date("Y-m-d",time());
-						// 	$obj = Redis::zrange($key,0,-1);
-						// 	if($data){
-						// 		$date = $date[0];
-						// 	}
-						// 	if($date==$times){
-						// 		$content = "你今天已签到,请明天再来!";
-						// 	}else{
-						// 		$zcard = Redis::zcard($key);
-						// 		if($zcard>=1){
-						// 			Redis::zremrangebyrank($key,0,0);
-						// 		}
-						// 		$keys = json_decode(json_encode($data),true);
 
-
-						// 		$keys = $keys['FromUserName'];
-						// 		$zincrby = Redis::zincrby($key,1,$keys);
-						// 		$zadd = Redis::zadd($key,$zincrby,$times);
-						// 		$content = "签到成功,您已积累签到".$zincrby."天!";
-						// 	}
-						// 	break;
 
 
 }
