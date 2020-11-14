@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
+
 use App\Fans;
 use App\Media;
 
@@ -90,7 +91,7 @@ class WxController extends Controller
 
 			Redis::set($key, $token);
 			Redis::expire($key, 1000);
-		}
+		}、
 
 
 		return $token;
@@ -150,6 +151,13 @@ class WxController extends Controller
 			    $this->typeContent($data);         //先调用这方法 判断是什么类型 ，在添加数据库9
 			}
 
+
+			//签到
+			// if($data->EventKey="V1001_QIAN"){
+			// 	$key = $data->
+			// }
+
+
 			//判断该数据包是否是订阅的事件推送
 			if (strtolower($data->MsgType) == "event") {
 				//关注
@@ -203,6 +211,29 @@ class WxController extends Controller
 							$array = ['鹦鹉http://music.163.com/song?id=1321392802&userid=1973187599','http://music.163.com/song?id=407450223&userid=1973187599','http://music.163.com/song?id=1403318151&userid=1973187599'];
 							$content = $array[array_rand($array)];
 							$this->Text($data,$content);
+							break;
+						case "V1001_QIAN":
+							$key = $data->FromUserName;
+							$times = date("Y-m-d",time());
+							$obj = Redis::zrange($key,0,-1);
+							if($data){
+								$date = $date[0];
+							}
+							if($date==$times){
+								$content = "你今天已签到,请明天再来!";
+							}else{
+								$zcard = Redis::zcard($key);
+								if($zcard>=1){
+									Redis::zremrangebyrank($key,0,0);
+								}
+								$keys = json_decode(json_encode($data),true);
+
+
+								$keys = $keys['FromUserName'];
+								$zincrby = Redis::zincrby($key,1,$keys);
+								$zadd = Redis::zadd($key,$zincrby,$times);
+								$content = "签到成功您已积累签到".$zincrby."天!";
+							}
 							break;
 						case 'V1001_GOOD':
 							$count = Cache::add('good',1)?:Cache::increment('goods');
@@ -328,9 +359,9 @@ class WxController extends Controller
 			        "name":"菜单",
 			        "sub_button":[
 			    {	
-			        "type":"view",
-			        "name":"搜索",
-			        "url":"http://www.soso.com/"
+			        "type":"click",
+			        "name":"签到",
+			        "key":"V1001_QIAN"
 			    },
 			    {
 			        "type":"click",
