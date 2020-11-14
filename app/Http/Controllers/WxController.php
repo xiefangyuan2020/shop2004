@@ -232,7 +232,7 @@ class WxController extends Controller
 								$keys = $keys['FromUserName'];
 								$zincrby = Redis::zincrby($key,1,$keys);
 								$zadd = Redis::zadd($key,$zincrby,$times);
-								$content = "签到成功您已积累签到".$zincrby."天!";
+								$content = "签到成功,您已积累签到".$zincrby."天!";
 							}
 							break;
 						case 'V1001_GOOD':
