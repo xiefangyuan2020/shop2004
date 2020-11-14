@@ -357,8 +357,8 @@ class WxController extends Controller
 			        "sub_button":[
 			    {	
 			        "type":"view",
-			        "name":"搜索",
-			        "url":"http://www.soso.com/"
+			        "name":"百度",
+			        "url":"http://www.baidu.com/"
 			    },
 			    {
 			        "type":"click",
