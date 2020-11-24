@@ -110,7 +110,7 @@ class XcxController extends Controller
             "shop_price" => $res['shop_price'],
             "goods_number" => $res['goods_number'],
             "goods_newest" => $res['goods_newest'],
-            "goods_desc" => $res['goods_desc'],
+            "goods_desc" => explode("|",$res['goods_desc']),
             "goods_imgs" => explode("|",$res['goods_imgs'])
         ];
         return $array;
