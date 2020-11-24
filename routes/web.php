@@ -89,5 +89,15 @@ Route::prefix('/wx')->group(function(){
     Route::get('/web_redirect','WxController@wxWebRedirect');         //网页授权
     Route::get('/kefu','WxController@kefu');
 
+    Route::post('/xcxlogin','Weixin\XcxController@login'); //小程序 获取code
+    Route::get('/goods','Weixin\XcxController@goods');
+    Route::get('/detail','Weixin\XcxController@detail');//商品详情
+
 });
 
+
+//小程序接入
+Route::prefix('/api')->group(function(){
+    Route::get('/test','Weixin\ApiController@test'); 
+    Route::any('/adduser','Weixin\ApiController@addUser'); //添加用户
+});
