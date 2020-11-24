@@ -104,12 +104,13 @@ class XcxController extends Controller
     //商品详情页
     public function detail(){
         $goods_id = request()->goods_id;
-        $res = PgoodsModel::select('goods_name','shop_price','goods_img','goods_number','goods_newest','goods_desc','goods_imgs')->where('goods_id',$goods_id)->first()->toArray();
+        $res = PgoodsModel::select('goods_name','shop_price','goods_img','goods_number','goods_newest','goods_desc','goods_imgs','keywords')->where('goods_id',$goods_id)->first()->toArray();
         $array = [
             "goods_name" => $res['goods_name'],
             "shop_price" => $res['shop_price'],
             "goods_number" => $res['goods_number'],
             "goods_newest" => $res['goods_newest'],
+            "keywords" => $res['keywords'],
             "goods_desc" => explode("|",$res['goods_desc']),
             "goods_imgs" => explode("|",$res['goods_imgs'])
         ];
