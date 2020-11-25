@@ -22,4 +22,12 @@ class ApiController extends Controller
     	print_r($_POST);
     }
 
+    //加入收藏
+    public function addFav(Request $request){
+        $goods_id = $request->get('id');
+        $token = $request->get('token');
+        echo $goods_id;
+        echo $token;
+    }
+
 }
