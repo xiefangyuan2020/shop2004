@@ -58,6 +58,7 @@ class XcxController extends Controller
             }
     		//成功
     		$token = sha1($data['openid'].$data['session_key'].mt_rand(0,999999));
+            dd($token);
     		//echo $token;
             $login_info = [
                 'uid' => $uid,
