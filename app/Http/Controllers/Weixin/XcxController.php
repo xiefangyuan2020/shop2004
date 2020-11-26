@@ -45,31 +45,32 @@ class XcxController extends Controller
 
             if($u){
                 //echo "老用户,已入库"
+                $uid = $u->id;
             }else{
                // dd($userinfo);
                 $u_info=[
                     'openid' => $openid,
-                    'nickname' => $userinfo['nickName'],
-                    'sex' =>  $userinfo['gender'],
-                    'language' => $userinfo['language'],
-                    'city'=> $userinfo['city'],
-                    'province' =>  $userinfo['province'],
-                    'country'  => $userinfo['country'],
-                    'headimgurl'=>$userinfo['avatarUrl'],
-                    'add_time'=>time(),
+                    'add_time'=>time(), //小程序
                      'type'=> 3
                 ];
 
-                UserxModel::insertGetId($u_info);
+                $uid = UserxModel::insertGetId($u_info);
             }
     		//成功
     		$token = sha1($data['openid'].$data['session_key'].mt_rand(0,999999));
     		//echo $token;
+            $login_info = [
+                'uid' => $uid,
+                'user_name' => "",
+                'login_time' => date('Y-m-d H:i:s'),
+                'login_ip' => $token,
+                'openid' => $openid
+            ];
     		//保存token
-    		$redis_key = 'xcx_token:'.$token;
-    		Redis::set($redis_key,time());
+    		//$redis_key = 'xcx_token:'.$token;
+    		Redis::hMset($redis_login_hash,$login_info);
     		//设置过期时间
-    		Redis::expire($redis_key,7200);
+    		Redis::expire($redis_login_hash,7200);
 
     		$response = [
     			'error' => 0,
