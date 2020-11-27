@@ -18,8 +18,8 @@ class XcxController extends Controller
         //dd($u);
     	//接收code
     	$code = $request->get('code');
+        dd($code);
     	// echo $code;
-
     	//使用code
     	$url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.env('WX_XCX_APPID').'&secret='.env('WX_XCX_SECRET').'&js_code='.$code.'&grant_type=authorization_code';
     	//$response = file_get_contents($url);
