@@ -14,7 +14,7 @@ class XcxController extends Controller
 {
     //小程序登录
     public function login(Request $request){
-        $userinfo = $request->u;
+        //$userinfo = $request->u;
         //dd($u);
     	//接收code
     	$code = $request->get('code');
@@ -50,15 +50,22 @@ class XcxController extends Controller
                // dd($userinfo);
                 $u_info=[
                     'openid' => $openid,
+                    'nickname' => $userinfo['nickName'],
+                    'sex' =>  $userinfo['gender'],
+                    'language' => $userinfo['language'],
+                    'city'=> $userinfo['city'],
+                    'province' =>  $userinfo['province'],
+                    'country'  => $userinfo['country'],
+                    'headimgurl'=>$userinfo['avatarUrl'],
                     'add_time'=>time(), //小程序
-                     'type'=> 3
+                    'type'=> 3
                 ];
 
                 $uid = UserxModel::insertGetId($u_info);
             }
     		//成功
     		$token = sha1($data['openid'].$data['session_key'].mt_rand(0,999999));
-            dd($token);
+            //dd($token);
     		//echo $token;
             $login_info = [
                 'uid' => $uid,
