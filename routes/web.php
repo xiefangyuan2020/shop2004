@@ -90,7 +90,7 @@ Route::prefix('/wx')->group(function(){
     Route::get('/kefu','WxController@kefu');
 
     Route::post('/xcxlogin','Weixin\XcxController@login'); //小程序 获取code
-    Route::get('/goods','Weixin\XcxController@goods');
+    Route::get('/goods','Weixin\XcxController@goods');//商品列表
     Route::get('/detail','Weixin\XcxController@detail');//商品详情
 
 });

@@ -90,14 +90,17 @@ class XcxController extends Controller
     //     return $goods;
     // }
 
-    public function goods(){
-        $goods = PgoodsModel::select('goods_id','goods_name','shop_price',"goods_img")->limit(10)->get()->toArray();
+    public function goods(Request $request){
+        // $goods = PgoodsModel::select('goods_id','goods_name','shop_price',"goods_img")->limit(10)->get()->toArray();
+        //下拉刷新
+        $page_size = $request->get('ps');
+        $goods = PgoodsModel::select('goods_id','goods_name','shop_price',"goods_img")->paginate($page_size);
         // dd($goods);
         $response = [
             'error' => 0,
             'msg' => 'ok',
             'data' => [
-                'list' => $goods
+                'list' => $goods->items()
             ]
         ];
         return $response;
