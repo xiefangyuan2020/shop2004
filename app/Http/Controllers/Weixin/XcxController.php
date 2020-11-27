@@ -94,13 +94,13 @@ class XcxController extends Controller
         // $goods = PgoodsModel::select('goods_id','goods_name','shop_price',"goods_img")->limit(10)->get()->toArray();
         //下拉刷新
         $page_size = $request->get('ps');
-        $goods = PgoodsModel::select('goods_id','goods_name','shop_price',"goods_img")->paginate($page_size);
+        $good = PgoodsModel::select('goods_id','goods_name','shop_price',"goods_img")->paginate($page_size);
         // dd($goods);
         $response = [
             'error' => 0,
             'msg' => 'ok',
             'data' => [
-                'list' => $goods->items()
+                'goods' => $good->items()
             ]
         ];
         return $response;
