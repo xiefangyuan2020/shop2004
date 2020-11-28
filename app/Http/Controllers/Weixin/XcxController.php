@@ -14,7 +14,7 @@ class XcxController extends Controller
 {
     //小程序登录
     public function login(Request $request){
-        //$userinfo = $request->u;
+        $userinfo = $request->u;
         //dd($u);
     	//接收code
     	$code = $request->get('code');
