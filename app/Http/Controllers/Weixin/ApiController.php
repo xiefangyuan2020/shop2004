@@ -29,49 +29,49 @@ class ApiController extends Controller
     }
 
     //加入收藏
-    // public function addFav(Request $request){
-    //     $goods_id = $request->get('id');
-    //     //加入收藏redis有序集合
-    //     $uid = 2345;
-    //     $redis_key = 'ss:goods:fav:'.$uid; //用户收藏的商品有序集合
-    //     Redis::Zadd($redis_key,time(),$goods_id); //将商品id加入有序集合，并给排序值
-
-    //     $response = [
-    //         'error' => 0,
-    //         'msg' => 'ok'
-    //     ];
-    //     return $response;
-    // }
-
-    //加入收藏
     public function addFav(Request $request){
         $goods_id = $request->get('id');
-        $token = $request->get('token');
-        $key = "xcxkey:".$token;
-        //取出openid
-        $token = Redis::hgetall($key);
-        $user_id = UserxModel::where('openid',$token['openid'])->select('u_id')->first()->toArray();
+        //加入收藏redis有序集合
+        $uid = 2345;
+        $redis_key = 'ss:goods:fav:'.$uid; //用户收藏的商品有序集合
+        Redis::Zadd($redis_key,time(),$goods_id); //将商品id加入有序集合，并给排序值
 
-        $data = [
-            'goods_id' => $goods_id,
-            'add_time' => time();
-            'user_id' =>$user_id['u_id']
+        $response = [
+            'error' => 0,
+            'msg' => 'ok'
         ];
-        $res = CollectModel::insert($data);
-
-        if($res){
-            $response = [
-                'error' => 0,
-                'msg' => '收藏成功',
-            ];
-        }else{
-            $response = [
-                'error' => 50001,
-                'msg' => '收藏失败',
-            ];
-        }
         return $response;
     }
+
+    //加入收藏
+    // public function addFav(Request $request){
+    //     $goods_id = $request->get('id');
+    //     $token = $request->get('token');
+    //     $key = "xcxkey:".$token;
+    //     //取出openid
+    //     $token = Redis::hgetall($key);
+    //     $user_id = UserxModel::where('openid',$token['openid'])->select('u_id')->first()->toArray();
+
+    //     $data = [
+    //         'goods_id' => $goods_id,
+    //         'add_time' => time();
+    //         'user_id' =>$user_id['u_id']
+    //     ];
+    //     $res = CollectModel::insert($data);
+
+    //     if($res){
+    //         $response = [
+    //             'error' => 0,
+    //             'msg' => '收藏成功',
+    //         ];
+    //     }else{
+    //         $response = [
+    //             'error' => 50001,
+    //             'msg' => '收藏失败',
+    //         ];
+    //     }
+    //     return $response;
+    // }
 
     //加入购车
      public function addCart(Request $request)
