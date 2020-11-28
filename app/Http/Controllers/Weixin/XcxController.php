@@ -21,7 +21,6 @@ class XcxController extends Controller
     	// echo $code;
     	//使用code
     	$url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.env('WX_XCX_APPID').'&secret='.env('WX_XCX_SECRET').'&js_code='.$code.'&grant_type=authorization_code';
-    	//$response = file_get_contents($url);
     	$data = json_decode(file_get_contents($url),true);
     	//print_r($data);
 
