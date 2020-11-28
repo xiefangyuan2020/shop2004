@@ -14,17 +14,17 @@ class XcxController extends Controller
 {
     //小程序登录
     public function login(Request $request){
-        //$userinfo = $request->u;
+        $userinfo = $request->u;
         //dd($u);
     	//接收code
     	$code = $request->get('code');
-        dd($code);
-    	// echo $code;
+    	dd($code);
     	//使用code
     	$url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.env('WX_XCX_APPID').'&secret='.env('WX_XCX_SECRET').'&js_code='.$code.'&grant_type=authorization_code';
     	//$response = file_get_contents($url);
     	$data = json_decode(file_get_contents($url),true);
     	//print_r($data);
+
 
     	//自定义登录状态
     	if(isset($data['errcode'])){
@@ -41,7 +41,7 @@ class XcxController extends Controller
     		// }
             $openid=$data['openid'];
 
-            $u = UserxModel::where(['openid'=>$openid])->first();
+            $u = UserxModel::where('openid',$openid)->first();
 
             if($u){
                 //echo "老用户,已入库"
@@ -75,10 +75,10 @@ class XcxController extends Controller
                 'openid' => $openid
             ];
     		//保存token
-    		//$redis_key = 'xcx_token:'.$token;
-    		Redis::hMset($redis_login_hash,$login_info);
+    		$redis_key = 'xcx_token:'.$token;
+    		Redis::hMset($redis_key,$login_info);
     		//设置过期时间
-    		Redis::expire($redis_login_hash,7200);
+    		Redis::expire($redis_key,7200);
 
     		$response = [
     			'error' => 0,
