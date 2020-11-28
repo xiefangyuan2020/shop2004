@@ -14,11 +14,11 @@ class XcxController extends Controller
 {
     //小程序登录
     public function login(Request $request){
-        $userinfo = $request->u;
+        //$userinfo = $request->u;
         //dd($u);
     	//接收code
     	$code = $request->get('code');
-    	dd($code);
+    	// echo $code;
     	//使用code
     	$url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.env('WX_XCX_APPID').'&secret='.env('WX_XCX_SECRET').'&js_code='.$code.'&grant_type=authorization_code';
     	//$response = file_get_contents($url);
