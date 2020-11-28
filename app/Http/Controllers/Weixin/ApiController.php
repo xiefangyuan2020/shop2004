@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
+use App\UserxModel;
+use App\CollectModel;
+use App\Model\PgoodsModel;
+
 class ApiController extends Controller
 {
     public function test(){
@@ -37,6 +41,36 @@ class ApiController extends Controller
         ];
         return $response;
     }
+
+    //加入收藏
+    // public function addFav(Request $request){
+    //     $goods_id = $request->get('id');
+    //     $token = $request->get('token');
+    //     $key = "xcxkey:".$token;
+    //     //取出openid
+    //     $token = Redis::hgetall($key);
+    //     $user_id = UserxModel::where('openid',$token['openid'])->select('id')->first()->toArray();
+
+    //     $data = [
+    //         'goods_id' => $goods_id,
+    //         'add_time' => time();
+    //         'user_id' =>$user_id['id']
+    //     ];
+    //     $res = CollectModel::insert($data);
+
+    //     if($res){
+    //         $response = [
+    //             'error' => 0,
+    //             'msg' => '收藏成功',
+    //         ];
+    //     }else{
+    //         $response = [
+    //             'error' => 50001,
+    //             'msg' => '收藏失败',
+    //         ];
+    //     }
+    //     return $response;
+    // }
 
     //加入购车
     public function addCart(){
