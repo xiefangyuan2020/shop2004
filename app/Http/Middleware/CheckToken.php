@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Redis;
 
+
 class CheckToken
 {
     /**
@@ -18,8 +19,11 @@ class CheckToken
     {
         //验证token
         $token = $request->get('token');
-        $redis_login_hash = 'h:xcx:login:' . $token;
+        // dd($token);
+        $redis_login_hash = 'shop_xcx_token' . $token;
+        // dd($redis_login_hash);
         $login_info = Redis::hgetAll($redis_login_hash);
+        // dd($login_info);
         if($login_info)
         {
             $_SERVER['uid'] = $login_info['uid'];

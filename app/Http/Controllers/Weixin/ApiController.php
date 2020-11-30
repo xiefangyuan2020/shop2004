@@ -75,8 +75,8 @@ class ApiController extends Controller
 
     //加入购车
     public function addCart(Request $request){
-       $goods_id = $request->post('goods_id');
-       dd($goods_id);
+       $goods_id = $request->post('goodsid');
+       //dd($goods_id);
        $uid = $_SERVER['uid'];
         // dd($uid);
 
