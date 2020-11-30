@@ -43,7 +43,7 @@ class XcxController extends Controller
 
             if($u){
                 //echo "老用户,已入库"
-                $uid = $u->id;
+                $uids = $u->u_id;
             }else{
                // dd($userinfo);
                 $u_info=[
@@ -66,7 +66,7 @@ class XcxController extends Controller
             //dd($token);
     		//echo $token;
             $login_info = [
-                'uid' => $uid,
+                'uid' => $uids,
                 'user_name' => "",
                 'login_time' => date('Y-m-d H:i:s'),
                 'login_ip' => $token,
