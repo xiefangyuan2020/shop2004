@@ -40,6 +40,7 @@ class XcxController extends Controller
             $openid=$data['openid'];
 
             $u = UserxModel::where('openid',$openid)->first();
+            dd($u);
 
             if($u){
                 //echo "老用户,已入库"
