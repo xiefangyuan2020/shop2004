@@ -20,7 +20,7 @@ class CheckToken
         //验证token
         $token = $request->get('token');
         // dd($token);
-        $redis_login_hash = 'shop_xcx_token' . $token;
+        $redis_login_hash = 'shop_xcx_token:' . $token;
         // dd($redis_login_hash);
         $login_info = Redis::hgetAll($redis_login_hash);
         // dd($login_info);
