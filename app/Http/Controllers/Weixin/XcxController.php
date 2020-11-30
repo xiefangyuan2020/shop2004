@@ -73,7 +73,7 @@ class XcxController extends Controller
                 'openid' => $openid
             ];
     		//保存token
-    		$redis_key = 'shop_xcx_token:'.$token;
+    		$redis_key = 'xcx_token:'.$token;
     		Redis::hMset($redis_key,$login_info);
     		//设置过期时间
     		Redis::expire($redis_key,7200);

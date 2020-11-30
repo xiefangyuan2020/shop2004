@@ -102,5 +102,5 @@ Route::prefix('/api')->group(function(){
     Route::any('/adduser','Weixin\ApiController@addUser'); //添加用户
     Route::any('/add-fav','Weixin\ApiController@addFav'); //加入收藏
     Route::get('/no_fav','Weixin\XcxController@no_Nav');//取消收藏
-    Route::post('/add-cart','Weixin\ApiController@addCart')->middleware('check.token'); //加入购物车
+    Route::any('/add-cart','Weixin\ApiController@addCart')->middleware('check.token'); //加入购物车
 });

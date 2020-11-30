@@ -20,14 +20,15 @@ class CheckToken
         //验证token
         $token = $request->get('token');
         // dd($token);
-        $redis_login_hash = 'shop_xcx_token:' . $token;
-        // dd($redis_login_hash);
-        $login_info = Redis::hgetAll($redis_login_hash);
-        // dd($login_info);
+        // $redis_login_hash = 'xcx_token:' . $token;
+        $redis_key = 'xcx_token:'.$token;
+        $login_info = Redis::hgetall($redis_key);
         if($login_info)
         {
+            // dd(123);
             $_SERVER['uid'] = $login_info['uid'];
         }else{
+            // dd(567);
             $response = [
                 'errno' => 400003,
                 'msg'   => "未授权"
