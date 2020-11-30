@@ -83,14 +83,14 @@ class ApiController extends Controller
         //查询商品的价格  购买数量  商品名称
         $shop_price = PgoodsModel::find($goods_id)->shop_price;
         //dd($shop_price);
-        $buy_number=PgoodsModel::find($goods_id)->buy_number;
+        $goods_sn=PgoodsModel::find($goods_id)->goods_sn;
         $goods_name=PgoodsModel::find($goods_id)->goods_name;
         //将商品存储购物车表 或 Redis
         $info = [
             'goods_id'  => $goods_id,
             'uid'       => $uid,
             'goods_name' =>$goods_name,
-            'buy_number' => $buy_number,
+            'goods_sn' => $goods_sn,
             'add_time'  => time(),
             'shop_price' => $shop_price
             
