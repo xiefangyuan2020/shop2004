@@ -74,21 +74,24 @@ class ApiController extends Controller
     // }
 
     //加入购车
-     public function addCart(Request $request)
-    {
-        $goods_id = $request->post('goodsid');
-        $uid = $_SERVER['uid'];
+    public function addCart(Request $request){
+       $goods_id = $request->post('goods_id');
+       dd($goods_id);
+       $uid = $_SERVER['uid'];
+        // dd($uid);
 
-        //查询商品的价格
-        $price = GoodsModel::find($goods_id)->shop_price;
-
+        //查询商品的价格  购买数量  商品名称
+        $shop_price = PgoodsModel::find($goods_id)->shop_price;
+        $buy_number=PgoodsModel::find($goods_id)->buy_number;
+        $goods_name=PgoodsModel::find($goods_id)->goods_name;
         //将商品存储购物车表 或 Redis
         $info = [
             'goods_id'  => $goods_id,
             'uid'       => $uid,
-            'goods_num' => 1,
+            'goods_name' =>$goods_name,
+            'buy_number' => $buy_number,
             'add_time'  => time(),
-            'cart_price' => $price
+            'shop_price' => $shop_price
         ];
 
         $id = CartModel::insertGetId($info);
@@ -109,3 +112,4 @@ class ApiController extends Controller
     }
 
 }
+   
