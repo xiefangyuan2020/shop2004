@@ -23,6 +23,7 @@ class CheckToken
         // $redis_login_hash = 'xcx_token:' . $token;
         $redis_key = 'xcx_token:'.$token;
         $login_info = Redis::hgetall($redis_key);
+        dd($login_info);
         if($login_info)
         {
             // dd(123);
