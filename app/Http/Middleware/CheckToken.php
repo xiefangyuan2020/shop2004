@@ -19,6 +19,7 @@ class CheckToken
     {
         //验证token
         $token = $request->get('token');
+        dd($token);
         // dd($token);
         $redis_login_hash = 'xcx_token:' . $token;
         // $redis_key = 'xcx_token:'.$token;
