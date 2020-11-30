@@ -91,8 +91,8 @@ class ApiController extends Controller
             'uid'       => $uid,
             'goods_name' =>$goods_name,
             'buy_number' => $buy_number,
-            'shop_price' => $shop_price,
-            'add_time'  => time()
+            'add_time'  => time(),
+            'shop_price' => $shop_price
             
         ];
 
