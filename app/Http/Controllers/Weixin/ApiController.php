@@ -78,7 +78,7 @@ class ApiController extends Controller
        $goods_id = $request->post('goodsid');
        //dd($goods_id);
        $uid = $_SERVER['uid'];
-    dd($uid);
+    // dd($uid);
 
         //查询商品的价格  购买数量  商品名称
         $shop_price = PgoodsModel::find($goods_id)->shop_price;
