@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fans extends Model
 {
-     protected $table = 'fans';
+    protected $table = 'fans';
     public $primaryKey = "id";
     public $timestamps = false;
 
