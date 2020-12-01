@@ -77,7 +77,7 @@ Route::post('/coupon/test','CouponController@test');
 
 
 //微信
-Route::prefix('/wx')->group(function(){
+Route::prefix('wx')->group(function(){
     Route::get('/','WxController@index');       //接入
     Route::post('/','WxController@wxEvent');
     Route::get('/token','WxController@getAccessToken');        //获取access_token
