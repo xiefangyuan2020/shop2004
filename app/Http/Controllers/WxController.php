@@ -347,11 +347,6 @@ class WxController extends Controller
 			        "name":"今日歌曲",
 			        "key":"V1001_TODAY_MUSIC"
 			    },
-			    {	
-			        "type":"click",
-			        "name":"天气",
-			        "key":"V1001_TIANQI"
-			     },
 			    {
 			        "name":"菜单",
 			        "sub_button":[
@@ -360,6 +355,11 @@ class WxController extends Controller
 			        "name":"百度",
 			        "url":"http://www.baidu.com/"
 			    },
+			    {	
+			        "type":"click",
+			        "name":"天气",
+			        "key":"V1001_TIANQI"
+			     },
 			    {
 			        "type":"click",
 			        "name":"赞一下我们",
